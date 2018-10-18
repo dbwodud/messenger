@@ -9,26 +9,26 @@ RUN apt-get -y update
 RUN apt-get -y dist-upgrade
 RUN apt-get install -y python-pip git vim
 
-# pyenv
+# pyenv 파이썬 버전 관리
 RUN         apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
 libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
 xz-utils tk-dev
 RUN         curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
 ENV         PATH /root/.pyenv/bin:$PATH
-RUN         pyenv install 3.6.3
+RUN         pyenv install 3.6.4
 
 # zsh
 RUN         apt-get install -y zsh
 RUN         wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
 RUN         chsh -s /usr/bin/zsh
 
-# pyenv settings
+# pyenv settings 설정
 RUN         echo 'export PATH="/root/.pyenv/bin:$PATH"' >> ~/.zshrc
 RUN         echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 RUN         echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
 
-# pyenv virtualenv
-RUN         pyenv virtualenv 3.6.3 app
+# pyenv virtualenv 파이썬 프로젝트 관리
+RUN         pyenv virtualenv 3.6.4 app
 
 # uWGSI install
 RUN         /root/.pyenv/versions/app/bin/pip install uwsgi
