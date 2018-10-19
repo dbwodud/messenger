@@ -25,7 +25,7 @@ SECRET_KEY = 'nui6ijw3ey%5&i(n%f67hdj^g5*!t-5_xoq)hj7$ag&^jimn_u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,7 +43,18 @@ INSTALLED_APPS = [
 
 # Channels
 
+redis_host = os.environ.get('REDIS_HOST','127.0.0.1')
+
 ASGI_APPLICATION = 'mysite.routing.application'
+CHANNEL_LAYERS = {
+    'default':{
+        'BACKEND':'channels_redis.core.RedisChannelLayer',
+        'CONFIG':{
+            "hosts":[('172.0.0.1',6379)],
+        },
+    },
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
