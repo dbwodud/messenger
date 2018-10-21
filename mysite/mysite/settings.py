@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'channels',
     'chat',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,20 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-
-# Channels
-
-redis_host = os.environ.get('REDIS_HOST','127.0.0.1')
-
-ASGI_APPLICATION = 'mysite.routing.application'
-CHANNEL_LAYERS = {
-    'default':{
-        'BACKEND':'channels_redis.core.RedisChannelLayer',
-        'CONFIG':{
-            "hosts":[('172.0.0.1',6379)],
-        },
-    },
-}
 
 
 MIDDLEWARE = [
